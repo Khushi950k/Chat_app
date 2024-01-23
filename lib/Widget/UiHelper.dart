@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 class UiHelper {
   static CustomTextField(TextEditingController controller, String text,
-      bool ToHide) {
+      bool ToHide,void Function(String value)? func) {
     return Container(
       height: 50,
       width: 320,
@@ -42,6 +42,17 @@ class UiHelper {
                   fontWeight: FontWeight.bold),
             )),
       ),
+    );
+  }
+  static CustomSnackBar(String text
+      //,BuildContext context
+      ) {
+    return Get.showSnackbar(GetSnackBar(
+      title: text,
+      backgroundColor: Colors.blue.withOpacity(.2),
+      snackPosition: SnackPosition.BOTTOM,
+    )
+   // )
     );
   }
 }
