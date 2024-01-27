@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:chat_app/Screens/SignUp/bloc/SignUp_bloc.dart';
 import 'package:chat_app/User_Profile/User_Profile.dart';
@@ -6,10 +5,10 @@ import 'package:chat_app/Widget/UiHelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 class SignUpController{
   final BuildContext context;
   SignUpController({required this.context});
@@ -24,19 +23,20 @@ class SignUpController{
       return UiHelper.CustomSnackBar("Enter Required Fields",);
     }
     else{
-      UserCredential? userCredential;
-      try{
-        userCredential=await auth.createUserWithEmailAndPassword(email: email, password: password)
+      UserCredential? usercredential;
+      try {
+        usercredential = await auth
+            .createUserWithEmailAndPassword(email: email, password: password)
             .then((value){
           firestore.collection("Users").doc(email).set({
-          "Email":email,
+            "Email": email,
           }).then((value){
-          return Get.to(const UserProfile());
+            return Get.to(UserProfileScreen());
           });
         });
       }
       on FirebaseAuthException catch(ex){
-        return log(ex.code.toString());
+        return UiHelper.CustomSnackBar(ex.code.toString());
       }
     }
   }

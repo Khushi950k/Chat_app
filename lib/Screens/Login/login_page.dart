@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:chat_app/Screens/Login/bloc/login_bloc.dart';
 import 'package:chat_app/Screens/Login/bloc/login_states.dart';
+import 'package:chat_app/Screens/Login/login_Controller.dart';
 import 'package:chat_app/Screens/SignUp/Signup_page.dart';
 import 'package:chat_app/Widget/UiHelper.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,6 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,20 +44,20 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  UiHelper.CustomTextField(emailController, "Email", false, (value){
+                  UiHelper.CustomTextField( "Email", false, (value){
                     context.read<LoginBloc>().add(EmailEvents(email: value));
                     print(value);
                   }),
                   SizedBox(
                     height: 10,
                   ),
-                  UiHelper.CustomTextField(passwordController, "Password", true, (value){
+                  UiHelper.CustomTextField( "Password", true, (value){
                     context.read<LoginBloc>().add(PasswordEvents(password: value));
                     print(value);
                   }),
                   SizedBox(height: 20),
                   UiHelper.CustomButton(() {
-
+                    LoginController(context: context).login();
                   }, "Sign In"),
                   SizedBox(
                     height: 20,
@@ -73,7 +72,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpPage()));
+                            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpPage()));
+
                           },
                           child: Text(
                             "Register now",

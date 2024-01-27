@@ -8,6 +8,7 @@ import 'package:chat_app/Screens/SignUp/bloc/SignUp_states.dart';
 import 'package:chat_app/Widget/UiHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -17,9 +18,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,28 +46,25 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    UiHelper.CustomTextField(emailController, "Email", false, (value){
+                    UiHelper.CustomTextField( "Email", false, (value){
                       context.read<SignUpBloc>().add(EmailEvents(email: value));
-                      log(value);
                     }),
                     SizedBox(
                       height: 10,
                     ),
-                    UiHelper.CustomTextField(passwordController, "Password", false, (value){
+                    UiHelper.CustomTextField( "Password", false, (value){
                       context.read<SignUpBloc>().add(PasswordEvents(password: value));
-                      log(value);
                     }),
                     SizedBox(
                       height: 10,
                     ),
-                    UiHelper.CustomTextField(confirmPasswordController, "Confirm Password", false,(value){
+                    UiHelper.CustomTextField("Confirm Password", false,(value){
                       context.read<SignUpBloc>().add(ConfirmPasswordEvents(confirmpassword: value));
                     }),
                     SizedBox(height: 20),
                     UiHelper.CustomButton(() {
                      SignUpController(context: context).signUp();
-
-                    }, "Sign Up"),
+                     }, "Sign Up"),
                     SizedBox(
                       height: 20,
                     ),
@@ -83,7 +78,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         TextButton(
                             onPressed: () {
-                             // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+                              //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+                              Get.to(LoginPage());
                             },
                             child: Text(
                               "Login now",

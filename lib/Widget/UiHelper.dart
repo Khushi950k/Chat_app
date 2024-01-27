@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 class UiHelper {
-  static CustomTextField(TextEditingController controller, String text,
+  static CustomTextField(String text,
       bool ToHide,void Function(String value)? func) {
     return Container(
       height: 50,
@@ -12,7 +12,7 @@ class UiHelper {
       child: Padding(
         padding: EdgeInsets.only(top: 5, left: 20),
         child: TextField(
-          controller: controller,
+          onChanged: (value)=>func!(value),
           obscureText: ToHide,
           decoration: InputDecoration(
               hintText: text,
@@ -44,16 +44,10 @@ class UiHelper {
       ),
     );
   }
-  static CustomSnackBar(String text
-      //,BuildContext context
-      ) {
-    return Get.showSnackbar(GetSnackBar(
-      title: text,
-      backgroundColor: Colors.blue.withOpacity(.2),
-      snackPosition: SnackPosition.BOTTOM,
-    )
-   // )
-    );
+  static CustomSnackBar(String text) {
+    return Get.snackbar("An Error Occured", text,
+        backgroundColor: Colors.black.withOpacity(.4));
   }
+   // )
 }
 
